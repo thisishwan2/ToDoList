@@ -10,11 +10,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ToDoListApplicationTests {
 
-	//테스트를 수행하고 그 후에 db를 비운다.
-	@AfterEach
-	void clear(){
-		new DBConnection();
-	}
+//	//테스트를 수행하고 그 후에 db를 비운다.
+//	@AfterEach
+//	void clear(){
+//		new DBConnection();
+//	}
 	@Autowired
 	private ToDoRepository toDoRepository;
 	@Test
