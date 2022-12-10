@@ -36,9 +36,9 @@ public class ToDoController {
         return "redirect:/todolist";
     }
 
-    @RequestMapping("/todolist/delete/{id}")
-    public String todoDelete(@PathVariable("id") Long id){
-        this.toDoService.delete(id);
+    @RequestMapping("/todolist/delete/{id}") //문제 아님.
+    public String todoDelete(@PathVariable("id") String id){//여기가 문제 string이 된다.
+        this.toDoService.delete(Long.valueOf(id));
         return "redirect:/todolist";
     }
 }
