@@ -1,10 +1,14 @@
 package com.mysite.ToDoList;
 
-
+import com.mysite.ToDoList.domain.ToDoEntity;
+import com.mysite.ToDoList.repository.ToDoRepository;
+import com.mysite.ToDoList.service.ToDoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -14,29 +18,27 @@ public class ToDoController {
 
     private final ToDoService toDoService;
 
-    @RequestMapping("/todo")
+    @RequestMapping("/todolist")//requestMapping method를 지정하지 않으면, 모든 메서드를 지원한다.
     public String list(Model model){
-        List<ToDoEntity> toDoEntityList = this.toDoService.getList();
-        model.addAttribute("toDoEntityList", toDoEntityList);
-        return "todo";
+        List<ToDoEntity> toDoEntityList = this.toDoService.searchAll();
+        model.addAttribute("todoEntityList", toDoEntityList);
+        return "todolist";
     }
 
     @RequestMapping("/")
     public String root(){
-        return "redirect:/todo";
+        return "redirect:/todolist";
     }
 
-    @PostMapping("/todo/create")
-    public String todoCreate(@RequestParam String content){
-        //content를 입렫하면, 다시 todo메인화면으로 간다.
-        this.toDoService.create(content);
-        return "redirect:/todo";
+    @RequestMapping("/todolist/create")
+    public String todoCreate(@RequestParam String title){
+        this.toDoService.create(title);
+        return "redirect:/todolist";
     }
 
-    // 삭제 기능
-    @DeleteMapping("/todo/delete/{id}")
-    public String todoDelete(@PathVariable Integer id){
+    @RequestMapping("/todolist/delete/{id}")
+    public String todoDelete(@PathVariable("id") Long id){
         this.toDoService.delete(id);
-        return "redirect:/todo";
+        return "redirect:/todolist";
     }
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoList</title>
+</head>
+<body>
+<h1>ToDo-List</h1>
+<form th:action="@{/todolist/create}" method="post">
+  <!--name 값이 컨트롤러에 전달되는 키값)-->
+  <input type="text" name="title" placeholder="오늘의 할일을 적어보세요!"/>
+  <button>작성</button>
+</form>
+<table>
+  <thead>
+  <tr> <!--행-->
+    <th>번호</th>
+    <th>할 일</th>
+    <th>수행 여부</th>
+  </tr> <!--행-->
+  </thead>
+  <tbody>
+  <tr th:each="todoentity : ${todoEntityList}">
+    <td th:text="${todoentity.id}"></td>
+    <td th:text="${todoentity.title}"></td>
+    <td th:text="${todoentity.completed}"></td><!--변수가 문자열로 전달됨-->
+    <td><input type="button" value="삭제" onclick='deleteItem("${todoentity.id}")'/></td>
+  </tr><!--행-->
+  </tbody>
+</table>
+</body>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script><!--왜 funtion이름으로 delete는 안되고, deleteItme은 될까?-->
+  function deleteItem(id) {
+    console.log(id)
+    const url = "/todo/delete/"+id
+    $.ajax({
+      type:'delete',
+      url:url,
+      contentType:'application/json; charset=utf-8'
+    }).done(function() {
+      alert('할 일이 삭제되었습니다.');
+      window.location.href = '/';
+    }).fail(function (error){
+      alert(JSON.stringify(error));
+    });
+  }
+</script>
+</html>
