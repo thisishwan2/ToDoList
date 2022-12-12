@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -27,11 +26,6 @@ public class ToDoService {
     public List<ToDoEntity> searchAll(){
         return this.toDoRepository.findAll();
     }
-
-//    //할일 단일 조회(id로)(null 일수도 잇음)
-//    public Optional<ToDoEntity> findById(Long id){
-//        return this.toDoRepository.findById(id);
-//    }
 
     //삭제
     @Transactional

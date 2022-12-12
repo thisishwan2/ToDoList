@@ -25,7 +25,7 @@
     <td th:text="${todoentity.id}"></td>
     <td th:text="${todoentity.title}"></td>
     <td th:text="${todoentity.completed}"></td><!--변수가 문자열로 전달됨-->
-    <td><input type="button" value="삭제" onclick="deleteItem(${todoentity.id})"/></td>
+    <td><input type="button" value="삭제" onclick="deleteItem([[${todoentity.id}]])"/></td>
   </tr><!--행-->
   </tbody>
 </table>
@@ -34,7 +34,7 @@
 <script><!--왜 funtion이름으로 delete는 안되고, deleteItme은 될까?-->
   function deleteItem(id) {
     console.log(id)
-    const url = "/todo/delete/"+id
+    const url = "/todolist/delete/"+id
     $.ajax({
       type:'delete',
       url:url,

@@ -1,15 +1,11 @@
 package com.mysite.ToDoList;
 
 import com.mysite.ToDoList.domain.ToDoEntity;
-import com.mysite.ToDoList.repository.ToDoRepository;
 import com.mysite.ToDoList.service.ToDoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -37,8 +33,8 @@ public class ToDoController {
     }
 
     @RequestMapping("/todolist/delete/{id}") //문제 아님.
-    public String todoDelete(@PathVariable("id") String id){//여기가 문제 string이 된다.
-        this.toDoService.delete(Long.valueOf(id));
+    public String todoDelete(@PathVariable("id") Long id){//여기가 문제 string이 된다.
+        this.toDoService.delete(id);
         return "redirect:/todolist";
     }
 }
